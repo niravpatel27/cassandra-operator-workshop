@@ -113,10 +113,10 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 6b7e71fe-8efe-402b-a96e-8f5763da34e3' \
   -d '{
-	"name" : "acme inc",
-	"email":"acme@gmail.com",
+	"name" : "abc inc",
+	"email":"abc@gmail.com",
 	"age": 21,
-	"city":"madison"
+	"city":"chicago"
 }'
 ```
 
@@ -128,10 +128,4 @@ curl -X GET \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 510a7008-94e4-4570-b367-3e2e14749976' \
-  -d '{
-	"name" : "acme inc",
-	"email":"acme@gmail.com",
-	"age": 21,
-	"city":"madison"
-}'
 ```
