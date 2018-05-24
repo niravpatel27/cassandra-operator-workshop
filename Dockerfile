@@ -1,4 +1,4 @@
 FROM scratch
 WORKDIR /app
-ADD main /app/
+ADD build/main /app/
 ENTRYPOINT ["./main"]

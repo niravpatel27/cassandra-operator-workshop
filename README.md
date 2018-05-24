@@ -36,8 +36,21 @@ cassandra-operator-847947679f-sk88d   1/1       Running   0          1m
 ## Provision Cassandra Cluster
 
 Create a deployment for Cassandra Cluster
+
 ```
 $ make provision-cassandra
+```
+
+Example: 
+```yaml
+apiVersion: stable.instaclustr.com/v1
+kind: CassandraDataCentre
+metadata:
+  name: cassandra
+spec:
+  serviceName: cassandra
+  replicas: 1
+  image: gcr.io/cassandra-operator/cassandra:latest
 ```
 
 Verify the Pod was created:
@@ -90,7 +103,35 @@ web       NodePort   10.108.82.46   <none>        8080:32491/TCP   1h
 $ minikube service web --url
 http://192.168.64.6:32491
 ```
+
 ### Create Account
 
+```
+curl -X POST \
+  http://192.168.64.6:31132/account \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 6b7e71fe-8efe-402b-a96e-8f5763da34e3' \
+  -d '{
+	"name" : "acme inc",
+	"email":"acme@gmail.com",
+	"age": 21,
+	"city":"madison"
+}'
+```
 
 ### Get Account
+
+```
+curl -X GET \
+  http://192.168.64.6:31132/accounts \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 510a7008-94e4-4570-b367-3e2e14749976' \
+  -d '{
+	"name" : "acme inc",
+	"email":"acme@gmail.com",
+	"age": 21,
+	"city":"madison"
+}'
+```

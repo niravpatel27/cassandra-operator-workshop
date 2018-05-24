@@ -1,11 +1,10 @@
 .PHONY: deploy-operator clean-operator clean-cassandra build-app docker-app-build minikube-deploy minikube-start docker-clean
 
-DIST_ROOT=dist
 KUBE_INSTALL := $(shell command -v kubectl 2> /dev/null)
-REPO=niravpatel/k8s-cassandra-fullstack
+REPO=niravpatel/k8s-cassandra-workshop
 KEY_SPACE=accountsapi
 CASSANDRA_CLUSTER_URL=cassandra.default.svc.cluster.local
-all: package
+BUILD_PATH=build
 
 check:
 ifndef KUBE_INSTALL 
@@ -25,7 +24,9 @@ clean-cassandra:
 	kubectl delete -f manifest/example.yaml
 
 build-app:
-	GOOS=linux go build -o main . 
+	@rm -rf ./build
+	@mkdir -p $(BUILD_PATH)
+	GOOS=linux go build -o $(BUILD_PATH)/main . 
 
 docker-app-build: check build-app
 	@eval $$(minikube docker-env) ;\
@@ -35,9 +36,8 @@ docker-clean:
 	docker rmi $(REPO)
 
 minikube-deploy: 
-	kubectl run web --image=$(REPO):latest --port=8080 -e KEY_SPACE=$(KEY_SPACE) -e CASSANDRA_CLUSTER_URL=$(CASSANDRA_CLUSTER_URL) --image-pull-policy=Never
+	kubectl run web --env="KEY_SPACE=$(KEY_SPACE)" --env="CASSANDRA_CLUSTER_URL=$(CASSANDRA_CLUSTER_URL)" --image=$(REPO):latest --port=8080 --image-pull-policy=Never
 	kubectl expose deployment web --target-port=8080 --type=NodePort
-	echo $(shell minikube service web --url)
 
 minikube-start: 
 	minikube start --cpus 4 --memory 4096 --vm-driver hyperkit --kubernetes-version v1.9.4
