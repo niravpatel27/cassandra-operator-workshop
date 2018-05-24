@@ -14,14 +14,38 @@ $ minikube start --cpus 4 --memory 4096 --vm-driver hyperkit --kubernetes-versio
 
 ## Deploy Cassandra Operator 
 
+Create a deployment for Cassandra Operator
+
 ```
 $ make deploy-operator
 ```
 
+Verify the Service was created and a port was allocated:
+
+````
+$ kubectl get services
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+cassandra         ClusterIP   None           <none>        9042/TCP         1m
+cassandra-seeds   ClusterIP   None           <none>        7000/TCP         1m
+
+$ kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+cassandra-operator-847947679f-sk88d   1/1       Running   0          1m
+```
+
 ## Provision Cassandra Cluster
 
+Create a deployment for Cassandra Cluster
 ```
 $ make provision-cassandra
+```
+
+Verify the Pod was created:
+
+```
+$ kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+cassandra-0                           1/1       Running   0          1m
 ```
 
 ## Tearing down your Operator deployment
@@ -32,7 +56,7 @@ $ make clean-operator
 
 ## Cassandra initial setup
 
-### Launch Launch `cqlsh` and execute:
+### Launch `cqlsh` and execute:
 
 ```
 $ kubectl exec cassandra-0 -i -t -- bash -c 'cqlsh cassandra-seeds'
@@ -54,6 +78,18 @@ $ make docker-app-build
 $ make minikube-deploy
 ```
 
+Verify the Service was created and a node port was allocated:
+```
+$ kubectl get service web
+NAME      TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+web       NodePort   10.108.82.46   <none>        8080:32491/TCP   1h
+```
+
+### To run locally, get public API endpoint
+```
+$ minikube service web --url
+http://192.168.64.6:32491
+```
 ### Create Account
 
 

@@ -16,13 +16,13 @@ deploy-operator: check
 	kubectl apply -f bundle.yaml
 
 provision-cassandra:
-	kubectl create -f ./example.yaml
+	kubectl create -f manifest/example.yaml
 
 clean-operator: check
-	kubectl delete -f bundle.yaml
+	kubectl delete -f manifest/bundle.yaml
 
 clean-cassandra:
-	kubectl delete -f ./example.yaml
+	kubectl delete -f manifest/example.yaml
 
 build-app:
 	GOOS=linux go build -o main . 
