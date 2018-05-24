@@ -22,7 +22,7 @@ $ make deploy-operator
 
 Verify the Service was created and a port was allocated:
 
-````
+```
 $ kubectl get services
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 cassandra         ClusterIP   None           <none>        9042/TCP         1m
