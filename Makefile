@@ -12,16 +12,16 @@ ifndef KUBE_INSTALL
 endif
 
 deploy-operator: check
-	kubectl apply -f bundle.yaml
+	kubectl apply -f manifest/operator.yaml
 
 provision-cassandra:
-	kubectl create -f manifest/example.yaml
+	kubectl create -f manifest/cluster.yaml
 
 clean-operator: check
-	kubectl delete -f manifest/bundle.yaml
+	kubectl delete -f manifest/operator.yaml
 
 clean-cassandra:
-	kubectl delete -f manifest/example.yaml
+	kubectl delete -f manifest/cluster.yaml
 
 build-app:
 	@rm -rf ./build
