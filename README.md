@@ -1,4 +1,6 @@
 # Cassandra Operator workshop
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fniravpatel27%2Fcassandra-operator-workshop.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fniravpatel27%2Fcassandra-operator-workshop?ref=badge_shield)
+
 
 ## Requirements
 * Kubernetes 1.8+
@@ -129,3 +131,6 @@ curl -X GET \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 510a7008-94e4-4570-b367-3e2e14749976' \
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fniravpatel27%2Fcassandra-operator-workshop.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fniravpatel27%2Fcassandra-operator-workshop?ref=badge_large)
